@@ -4,7 +4,7 @@ import service.Gerenciamento;
 import java.util.Scanner;
 
 public class MenuController {
-    Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     Gerenciamento ger = new Gerenciamento();
 
     public void menu(){
@@ -35,9 +35,9 @@ public class MenuController {
                 case 1: ger.listarAlunos(); break;
                 case 2: ger.cadastrarAluno(sc); break;
                 case 3: ger.cadastrarCurso(sc); break;
-                case 4:
-                case 5:
-                case 6:
+                case 4: ger.matricularAluno(sc); break;
+                case 5: ger.listarCursosAlunos(); break;
+                case 6: ger.listarAlunosSemCurso(); break;
                 case 7: ger.deletarAluno(sc); break;
                 case 8: ger.deletarCurso(sc); break;
                 default:

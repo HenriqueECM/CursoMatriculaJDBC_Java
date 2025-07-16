@@ -2,6 +2,7 @@ package service;
 
 import dao.AlunoDAO;
 import dao.CursoDAO;
+import dao.MatriculaDAO;
 import model.Aluno;
 import model.Curso;
 
@@ -11,6 +12,8 @@ import java.util.Scanner;
 public class Gerenciamento {
     private AlunoDAO listaAluno = new AlunoDAO();
     private CursoDAO listaCurso = new CursoDAO();
+    private MatriculaDAO listaMatricula = new MatriculaDAO();
+
 
     public void listarAlunos(){
         List<Aluno> lista = AlunoDAO.listar();
@@ -52,23 +55,46 @@ public class Gerenciamento {
         listaCurso.inserir(curso);
     }
 
-    public void matricularAluno(){
+    public void matricularAluno(Scanner sc){
+        sc.nextLine();
 
+        System.out.println("Digite ID do aluno que deseja matricular: ");
+        int id = sc.nextInt();
+
+        System.out.println("Cursos disponiveis: ");
+        listarCursos();
+
+        System.out.println("Digite ID do curso que deseja matricular aluno: ");
+        int idCurso = sc.nextInt();
+
+        listaMatricula.inserir(id, idCurso);
     }
 
     public void listarCursosAlunos(){
-
+        listaMatricula.listarCursosAlunos();
     }
 
     public void listarAlunosSemCurso(){
-
+        listaMatricula.listarAlunosSemCurso();
     }
 
     public void deletarAluno(Scanner sc){
+        sc.nextLine();
 
+        System.out.println("Digite ID do aluno que deseja deletar: ");
+        int id = sc.nextInt();
+
+        Aluno aluno = new Aluno(id, "", "");
+        listaAluno.deletar(aluno);
     }
 
     public void deletarCurso(Scanner sc){
+        sc.nextLine();
 
+        System.out.println("Digite ID do curso que deseja deletar: ");
+        int id = sc.nextInt();
+
+        Curso curso = new Curso(id, "", "");
+        listaCurso.deletar(curso);
     }
 }
