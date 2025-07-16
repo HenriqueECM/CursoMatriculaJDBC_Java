@@ -87,4 +87,29 @@ public class MatriculaDAO {
         }
     }
 
+    public void ListarCursoSemAluno () {
+        String sql = """
+                SELECT c.id, c.nome
+                FROM curso c
+                LEFT JOIN matricula m ON c.id = m.curso_id
+                WHERE m.aluno_id IS NULL
+                """;
+
+        try (Connection connection = Conexao.conectar();
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery()) {
+
+            System.out.println("Cursos sem alunos matriculados: ");
+
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+
+                System.out.printf("ID: %d - Nome: %s%n", id, nome);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

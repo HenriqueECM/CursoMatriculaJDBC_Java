@@ -58,10 +58,10 @@ public class Gerenciamento {
     public void matricularAluno(Scanner sc){
         sc.nextLine();
 
-        System.out.println("Digite ID do aluno que deseja matricular: ");
+        System.out.println("\nDigite ID do aluno que deseja matricular: ");
         int id = sc.nextInt();
 
-        System.out.println("Cursos disponiveis: ");
+        System.out.println("\nCursos disponiveis: ");
         listarCursos();
 
         System.out.println("Digite ID do curso que deseja matricular aluno: ");
@@ -70,12 +70,19 @@ public class Gerenciamento {
         listaMatricula.inserir(id, idCurso);
     }
 
+    // Listar todos os cursos com seus alunos
     public void listarCursosAlunos(){
         listaMatricula.listarCursosAlunos();
     }
 
+    // Listar alunos não matriculados em nenhum curso
     public void listarAlunosSemCurso(){
         listaMatricula.listarAlunosSemCurso();
+    }
+
+    // Desafio extra - Cursos sem nenhum aluno.
+    public void listarCursoSemAluno(){
+        listaMatricula.ListarCursoSemAluno();
     }
 
     public void deletarAluno(Scanner sc){
