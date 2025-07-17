@@ -85,6 +85,18 @@ public class Gerenciamento {
         listaMatricula.ListarCursoSemAluno();
     }
 
+    // Desafio extra - Total de alunos por curso.
+    public void totalAlunoPorCurso(Scanner sc){
+        sc.nextLine();
+
+        System.out.println("Digite ID do curso que deseja saber total de alunos: ");
+        int id = sc.nextInt();
+
+        int total = listaMatricula.totalAlunoCurso(id);
+
+        System.out.println(total);
+    }
+
     public void deletarAluno(Scanner sc){
         sc.nextLine();
 

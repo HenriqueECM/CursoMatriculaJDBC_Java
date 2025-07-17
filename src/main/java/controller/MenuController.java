@@ -23,6 +23,7 @@ public class MenuController {
                     7 - Excluir aluno
                     8 - Excluir curso
                     9 - Listar cursos sem alunos
+                    10 - Total de alunos por curso
                     0 - Sair
                     
                     Escolha uma operação do sistema:
@@ -42,6 +43,7 @@ public class MenuController {
                 case 7: ger.deletarAluno(sc); break;
                 case 8: ger.deletarCurso(sc); break;
                 case 9: ger.listarCursoSemAluno(); break;
+                case 10: ger.totalAlunoPorCurso(sc); break;
                 default:
                     System.out.println("Opção Inválida! Tente Novamente.");
                     break;
