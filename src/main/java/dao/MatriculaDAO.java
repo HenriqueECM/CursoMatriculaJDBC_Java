@@ -38,23 +38,22 @@ public class MatriculaDAO {
     """;
 
         try (Connection connection = Conexao.conectar();
-             PreparedStatement stmt = connection.prepareStatement(sql);
+             PreparedStatement stmt = connection.prepareStatement(sql)){
 
-             ResultSet rs = stmt.executeQuery()) {
-
+            ResultSet rs = stmt.executeQuery();
             String cursoAtual = "";
 
-            while (rs.next()) {
-                String curso = rs.getString("curso");
-                String aluno = rs.getString("aluno");
+                while (rs.next()) {
+                    String curso = rs.getString("curso");
+                    String aluno = rs.getString("aluno");
 
-                // Evitar repetir o nome do curso várias vezes
-                if (!curso.equals(cursoAtual)) {
-                    System.out.println("\nCurso: " + curso);
-                    cursoAtual = curso;
+                    // Evitar repetir o nome do curso várias vezes
+                    if (!curso.equals(cursoAtual)) {
+                        System.out.println("\nCurso: " + curso);
+                        cursoAtual = curso;
+                    }
+                    System.out.println("  - " + aluno);
                 }
-                System.out.println("  - " + aluno);
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -63,16 +62,16 @@ public class MatriculaDAO {
 
     public void listarAlunosSemCurso() {
         String sql = """
-        SELECT a.id, a.nome
-        FROM aluno a
-        LEFT JOIN matricula m ON a.id = m.aluno_id
-        WHERE m.curso_id IS NULL
-    """;
+                SELECT a.id, a.nome
+                FROM aluno a
+                LEFT JOIN matricula m ON a.id = m.aluno_id
+                WHERE m.curso_id IS NULL
+                """;
 
         try (Connection connection = Conexao.conectar();
-             PreparedStatement stmt = connection.prepareStatement(sql);
+             PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-             ResultSet rs = stmt.executeQuery()) {
+            ResultSet rs = stmt.executeQuery();
 
             System.out.println("Alunos não matriculados em nenhum curso:");
 
@@ -111,5 +110,32 @@ public class MatriculaDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public int totalAlunoCurso(int idCurso){
+        String sql = """
+                SELECT COUNT(*) AS total
+                FROM matricula m
+                LEFT JOIN aluno a ON m.aluno_id = a.id
+                LEFT JOIN curso c ON m.curso_id = c.id
+                WHERE m.id_curso = ?
+                """;
+
+        int total = 0;
+        try (Connection connection = Conexao.conectar();
+            PreparedStatement stmt = connection.prepareStatement(sql)){
+
+            ResultSet rs = stmt.executeQuery();
+
+            stmt.setInt(1, idCurso);
+
+            if (rs.next()){
+                total = rs.getInt("total");
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+        return total;
     }
 }
